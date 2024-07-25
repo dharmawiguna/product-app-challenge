@@ -28,7 +28,7 @@ export function ContactForm() {
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          Contact Us
+          Contact
         </Typography>
         <Typography
           variant="lead"
