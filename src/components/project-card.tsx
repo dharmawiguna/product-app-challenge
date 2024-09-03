@@ -8,12 +8,18 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 
+interface DevLogo {
+  name: string;
+  image: string;
+}
 interface ProjectCardProps {
   img: string;
   title: string;
   subtitle: string;
   desc: string;
   url: string;
+  devLogo: DevLogo[];
+  youtube: string;
 }
 
 export function ProjectCard({
@@ -22,6 +28,8 @@ export function ProjectCard({
   subtitle,
   desc,
   url,
+  devLogo,
+  youtube,
 }: ProjectCardProps) {
   return (
     <Card
@@ -52,30 +60,50 @@ export function ProjectCard({
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <a
-          href="#"
-          className="text-blue-gray-900 transition-colors hover:text-gray-800"
+        <Typography
+          variant="h5"
+          className="mb-1"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
-          <Typography
-            variant="h5"
-            className="mb-1"
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="h6"
-            className="mb-1"
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            {subtitle}
-          </Typography>
-          <hr />
-        </a>
+          {title}
+        </Typography>
+        <Typography
+          variant="h6"
+          className="mb-1"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          {subtitle}
+        </Typography>
+        <div className="flex items-center space-x-4 p-4">
+          {devLogo.map((logo, index) => (
+            <Image
+              src={logo.image}
+              alt={logo.name}
+              // className="w-8 h-8"
+              key={index}
+              width={20}
+              height={20}
+            />
+          ))}
+        </div>
+        <hr />
+        {youtube && (
+          <div className="flex items-center space-x-4 pt-2">
+            <Image
+              src={"/image/porto/dev-logos/youtube-logo.png"}
+              alt="youtube"
+              width={25}
+              height={25}
+            />
+            <a href={youtube} target="_blank" className="m-0 text-sm">
+              Watch Demo
+            </a>
+          </div>
+        )}
         <Typography
           className="mt-2 mb-6 font-normal !text-gray-500"
           placeholder={undefined}
