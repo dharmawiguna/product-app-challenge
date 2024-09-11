@@ -1,85 +1,141 @@
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Bars2Icon, HomeIcon } from "@heroicons/react/24/solid";
 import {
+  Avatar,
+  Button,
   IconButton,
   Navbar as MTNavbar,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MobileNav,
   Typography,
 } from "@material-tailwind/react";
-import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-interface NavItemProps {
-  children: React.ReactNode;
-  href?: string;
+function ProfileMenu() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
+  return (
+    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+      <MenuHandler>
+        <Button
+          variant="text"
+          color="blue-gray"
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <Avatar
+            variant="circular"
+            size="sm"
+            alt="tania andrew"
+            className="border border-gray-900 p-0.5"
+            src="https://media.licdn.com/dms/image/v2/D5603AQHyYZiKynQuFQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1671436536178?e=1731542400&v=beta&t=NGrdK-qKeEfmAXgDqhrcdkaEy8VAr6acvZ_XuUv-Rek"
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+        </Button>
+      </MenuHandler>
+    </Menu>
+  );
 }
 
-function NavItem({ children, href }: NavItemProps) {
+// nav list component
+const navListItems = [
+  {
+    label: "Home",
+    icon: HomeIcon,
+    url: "/",
+  },
+];
+
+function NavList() {
   return (
-    <li>
-      <Typography
-        as="a"
-        href={href || "#"}
-        target={href ? "_blank" : "_self"}
-        variant="paragraph"
-        color="gray"
-        className="flex items-center gap-2 font-medium text-gray-900"
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        {children}
-      </Typography>
-    </li>
+    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
+      {navListItems.map(({ label, icon, url }, key) => (
+        <Typography
+          key={label}
+          as="a"
+          href="#"
+          variant="small"
+          color="gray"
+          className="font-medium text-blue-gray-500"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <Link href={url}>
+            <MenuItem
+              className="flex items-center gap-2 lg:rounded-full"
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
+              <span className="text-gray-900"> {label}</span>
+            </MenuItem>
+          </Link>
+        </Typography>
+      ))}
+    </ul>
   );
 }
 
 export function Navbar() {
-  const [open, setOpen] = React.useState(false);
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
 
-  const handleOpen = () => setOpen((cur) => !cur);
+  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpen(false)
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
 
   return (
     <MTNavbar
-      shadow={false}
-      fullWidth
-      className="border-0 sticky top-0 z-50"
+      className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
     >
-      <div className="container mx-auto flex items-center justify-between">
-        <Image src="/logo-dw.png" alt="/logo-dw.png" width={100} height={100} />
-        {/* <Typography
-          color="blue-gray"
-          className="text-lg font-bold"
+      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+        <Typography
+          as="a"
+          href="#"
+          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          Dharma Wiguna
-        </Typography> */}
+          Material Tailwind
+        </Typography>
+        <div className="hidden lg:block">
+          <NavList />
+        </div>
         <IconButton
+          size="sm"
+          color="blue-gray"
           variant="text"
-          color="gray"
-          onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
+          onClick={toggleIsNavOpen}
+          className="ml-auto mr-2 lg:hidden"
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6" />
-          )}
+          <Bars2Icon className="h-6 w-6" />
         </IconButton>
+        <ProfileMenu />
       </div>
+      <MobileNav open={isNavOpen} className="overflow-scroll">
+        <NavList />
+      </MobileNav>
     </MTNavbar>
   );
 }

@@ -11,8 +11,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "BULLSEYE Porto - Dharma Wiguna",
-  description: "BULLSEYE PORTO - task 2 for technical test",
+  title: "Product App - Dharma Wiguna",
+  description: "Product App - task for technical test",
 };
 
 export default function RootLayout({

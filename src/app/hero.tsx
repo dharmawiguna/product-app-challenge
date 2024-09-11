@@ -16,7 +16,8 @@ function Hero() {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Welcome to my Web <br /> BULLSEYE PORTOFOLIO!
+            Discover the <span className="text-teal-600">Best Products</span>{" "}
+            for Your Needs!
           </Typography>
           <Typography
             variant="lead"
@@ -25,9 +26,8 @@ function Hero() {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            I&apos;m Dharma Wiguna, a passionate frontend developer based in
-            BALI. Here, you&apos;ll get a glimpse of my journey in the world of
-            web development, where creativity meets functionality.
+            Explore our curated selection and find exactly what you’re looking
+            for.
           </Typography>
         </div>
         <Image
