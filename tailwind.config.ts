@@ -9,5 +9,6 @@ const config: Config = withMT({
   theme: {},
   plugins: [],
 });
+//
 
 export default config;
